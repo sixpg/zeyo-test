@@ -27,18 +27,23 @@ jobs:
         env:
           API_URL: ${{ secrets.API_URL }}
           STAR_JSON_URL: ${{ secrets.STAR_JSON_URL }}
+          STAR_COOKIE_URL: ${{ secrets.STAR_COOKIE_URL }}
         run: |
           python <<EOF
           import os, requests
 
           api_url = os.environ["API_URL"]
-          star_url = os.environ["STAR_JSON_URL"]
+          star_json_url = os.environ["STAR_JSON_URL"]
+          star_cookie_url = os.environ["STAR_COOKIE_URL"]
 
-          # Fetch main all-channels API
+          # Fetch all channels API
           main_data = requests.get(api_url, timeout=60).json()
 
-          # Fetch hidden Star Sports JSON
-          star_data = requests.get(star_url, timeout=60).json()
+          # Fetch Star Sports keys JSON
+          star_data = requests.get(star_json_url, timeout=60).json()
+
+          # Fetch Star Sports cookie JSON
+          cookie_data = requests.get(star_cookie_url, timeout=60).json()
 
           lines = ['#EXTM3U']
           used = set()
@@ -79,15 +84,23 @@ jobs:
           for ch in main_data:
               add_channel(ch)
 
-          # STEP 2: Add only Star Sports channels into Sports folder
+          # Build cookie URL map using channel_id
+          cookie_map = {}
+
+          for item in cookie_data.get("successful_results", []) + cookie_data.get("failed_results", []):
+              cid = str(item.get("channel_id", "")).strip()
+              furl = item.get("error_details", {}).get("final_url", "") or item.get("channel_url", "")
+              if cid and furl:
+                  cookie_map[cid] = furl
+
+          # STEP 2: Add Star Sports channels with keys + fresh cookie URLs
           for ch in star_data:
-              name = (
-                  ch.get("channel_name")
-                  or ch.get("name")
-                  or ""
-              ).lower()
+              name = (ch.get("channel_name") or ch.get("name") or "").lower()
+              cid = str(ch.get("channel_id") or ch.get("id") or "").strip()
 
               if "star sports" in name:
+                  if cid in cookie_map:
+                      ch["channel_url"] = cookie_map[cid]
                   add_channel(ch, force_group="Sports")
 
           with open("jtv.m3u", "w", encoding="utf-8") as f:
