@@ -1,0 +1,103 @@
+# .github/workflows/update-m3u.yml
+
+name: Auto Update M3U
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Requests
+        run: pip install requests
+
+      - name: Generate Star Sports Playlist
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          STAR_JSON_URL: ${{ secrets.STAR_JSON_URL }}
+        run: |
+          python <<EOF
+          import os, json, requests
+
+          # Main API
+          api_url = os.environ["API_URL"]
+
+          # Hidden Star Sports JSON URL from secrets
+          star_url = os.environ["STAR_JSON_URL"]
+
+          # Fetch both APIs
+          main_data = requests.get(api_url, timeout=60).json()
+          star_data = requests.get(star_url, timeout=60).json()
+
+          # Merge all data
+          all_channels = []
+
+          if isinstance(main_data, list):
+              all_channels.extend(main_data)
+
+          if isinstance(star_data, list):
+              all_channels.extend(star_data)
+
+          # Keep only Star Sports channels
+          filtered = []
+          for ch in all_channels:
+              name = (
+                  ch.get("channel_name")
+                  or ch.get("name")
+                  or ""
+              ).strip()
+
+              if "star sports" in name.lower():
+                  filtered.append(ch)
+
+          lines = ['#EXTM3U']
+
+          for ch in filtered:
+              name = ch.get("channel_name") or ch.get("name") or "Unknown"
+              logo = ch.get("channel_logo") or ch.get("logo") or ""
+              gid = ch.get("channel_id") or ch.get("id") or ""
+              group = "Sports"
+              stream = ch.get("channel_url") or ch.get("url") or ""
+              kid = ch.get("keyId","")
+              key = ch.get("key","")
+
+              lines.append(
+                  f'#EXTINF:-1 tvg-id="{gid}" tvg-logo="{logo}" group-title="{group}",{name}'
+              )
+
+              if kid not in ["", "null", None] and key not in ["", "null", None]:
+                  lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
+                  lines.append(
+                      f"#KODIPROP:inputstream.adaptive.license_key={kid}:{key}"
+                  )
+
+              lines.append(stream)
+              lines.append("")
+
+          import os
+          os.makedirs("sports", exist_ok=True)
+
+          with open("sports/star-sports.m3u", "w", encoding="utf-8") as f:
+              f.write("\n".join(lines))
+
+          EOF
+
+      - name: Commit Files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sports/star-sports.m3u
+          git commit -m "Auto update Star Sports playlist" || echo "No changes"
+          git push
