@@ -23,7 +23,7 @@ jobs:
       - name: Install Requests
         run: pip install requests
 
-      - name: Generate Sports Playlist
+      - name: Generate Full Playlist + Add Star Sports
         env:
           API_URL: ${{ secrets.API_URL }}
           STAR_JSON_URL: ${{ secrets.STAR_JSON_URL }}
@@ -34,20 +34,25 @@ jobs:
           api_url = os.environ["API_URL"]
           star_url = os.environ["STAR_JSON_URL"]
 
-          # Fetch main API
+          # Fetch main all-channels API
           main_data = requests.get(api_url, timeout=60).json()
 
-          # Fetch Star Sports JSON
+          # Fetch hidden Star Sports JSON
           star_data = requests.get(star_url, timeout=60).json()
 
           lines = ['#EXTM3U']
           used = set()
 
-          def add_channel(ch):
+          def add_channel(ch, force_group=None):
               name = ch.get("channel_name") or ch.get("name") or "Unknown"
               logo = ch.get("channel_logo") or ch.get("logo") or ""
               gid = ch.get("channel_id") or ch.get("id") or ""
-              group = ch.get("channel_genre") or ch.get("category") or "Sports"
+              group = (
+                  force_group
+                  or ch.get("channel_genre")
+                  or ch.get("category")
+                  or "Live TV"
+              )
               stream = ch.get("channel_url") or ch.get("url") or ""
               kid = ch.get("keyId","")
               key = ch.get("key","")
@@ -70,18 +75,11 @@ jobs:
               lines.append(stream)
               lines.append("")
 
-          # Add only SPORTS channels from API_URL
+          # STEP 1: Add ALL channels from API_URL
           for ch in main_data:
-              group = (
-                  ch.get("channel_genre")
-                  or ch.get("category")
-                  or ""
-              ).lower()
+              add_channel(ch)
 
-              if "sport" in group:
-                  add_channel(ch)
-
-          # Add ALL Star Sports channels from hidden JSON
+          # STEP 2: Add only Star Sports channels into Sports folder
           for ch in star_data:
               name = (
                   ch.get("channel_name")
@@ -90,10 +88,7 @@ jobs:
               ).lower()
 
               if "star sports" in name:
-                  add_channel(ch)
-
-          import os
-          os.makedirs("sports", exist_ok=True)
+                  add_channel(ch, force_group="Sports")
 
           with open("jtv.m3u", "w", encoding="utf-8") as f:
               f.write("\n".join(lines))
@@ -105,5 +100,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add jtv.m3u
-          git commit -m "Auto update sports playlist" || echo "No changes"
+          git commit -m "Auto update full playlist with Star Sports" || echo "No changes"
           git push
