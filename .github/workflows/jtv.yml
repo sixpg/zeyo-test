@@ -23,7 +23,7 @@ jobs:
       - name: Install Requests
         run: pip install requests
 
-           - name: Generate Full Playlist + Add Star Sports
+      - name: Generate Full Playlist + Add Star Sports
         env:
           API_URL: ${{ secrets.API_URL }}
           STAR_JSON_URL: ${{ secrets.STAR_JSON_URL }}
@@ -117,7 +117,7 @@ jobs:
               f.write("\n".join(lines))
 
           EOF
-          
+
       - name: Commit Files
         run: |
           git config user.name "github-actions[bot]"
