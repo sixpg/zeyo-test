@@ -5376,7 +5376,7 @@ https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_BTS/WDVLive/index.mpd?__h
 #EXTINF:-1 tvg-id="1142" tvg-logo="https://img.media.jio.com/tvpimages/56/92/302115_1749665579801_l_medium.jpg" group-title="Sports",Star Sports 1
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=df20894ec30954d3b28097c138f4cfda:ff9b6292b1cddbd11a046029cb314634
-https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_1_BTS/WDVLive/index.mpd?__hdnea__=st=1777815907~exp=1777837507~acl=/bpk-tv/Star_Sports_1_BTS/WDVLive/*~hmac=16615933c11708f56103ecaa002b8d7152188a9b882faf9885630d93942cab23
+https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_1_BTS/WDVLive/index.mpd?__hdnea__=st=1777838408~exp=1777860008~acl=/bpk-tv/Star_Sports_1_BTS/WDVLive/*~hmac=bc7b34de41bd52b184db39abcb6a27509e0bcd11c1b7a83bf204eab302ab917d
 
 #EXTINF:-1 tvg-id="1108" tvg-logo="https://img.media.jio.com/tvpimages/5/6/301982_1749665314605_l_medium.jpg" group-title="Sports",Star Sports 1 Hindi HD
 #KODIPROP:inputstream.adaptive.license_type=clearkey
@@ -5391,12 +5391,12 @@ https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_1_Hindi_BTS/WDVLive/index.mpd
 #EXTINF:-1 tvg-id="1109" tvg-logo="https://img.media.jio.com/tvpimages/41/51/301983_1749666169105_l_medium.jpg" group-title="Sports",Star Sports 2 HD
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=9457eb90129456fa8ea95e10ba4ac51e:e620a970cea474c491ac78ae71a4d764
-https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD2_BTS/WDVLive/index.mpd?__hdnea__=st=1777815937~exp=1777837537~acl=/bpk-tv/Star_Sports_HD2_BTS/WDVLive/*~hmac=97ec463cfb4204680b11ba0e10d54fc3484af931183b5e8b294c590195f75858
+https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD2_BTS/WDVLive/index.mpd?__hdnea__=st=1777837542~exp=1777859142~acl=/bpk-tv/Star_Sports_HD2_BTS/WDVLive/*~hmac=9cee20c56f85769af0115ac7de20ec512d9b3b6c077ba657966d7646e023f368
 
 #EXTINF:-1 tvg-id="1141" tvg-logo="https://img.media.jio.com/tvpimages/11/30/302116_1749666029079_l_medium.jpg" group-title="Sports",Star Sports 2
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=fc3aafe80845584199a637249fad2ffa:ca4474972fdb4bf8ecb164482853c692
-https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_2_BTS/WDVLive/index.mpd?__hdnea__=st=1777815939~exp=1777837539~acl=/bpk-tv/Star_Sports_2_BTS/WDVLive/*~hmac=c3388e9736bf75e7d32d3e4202ce4bf6eed5e47106f8f1e30ea55ab02326d441
+https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_2_BTS/WDVLive/index.mpd?__hdnea__=st=1777837542~exp=1777859142~acl=/bpk-tv/Star_Sports_2_BTS/WDVLive/*~hmac=d7e76e510fb29a436f8cc6d3c4902a81b1b9f6f29a5fd365a9fb70c1c5de7d34
 
 #EXTINF:-1 tvg-id="1984" tvg-logo="https://img.media.jio.com/tvpimages/56/36/301229_1742214332015_l_medium.jpg" group-title="Sports",Star Sports 2 Hindi HD
 #KODIPROP:inputstream.adaptive.license_type=clearkey
@@ -5463,12 +5463,7 @@ https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports2_Telugu_HD_BTS/WDVLive/index.
 #KODIPROP:inputstream.adaptive.license_key=e38f46718d9d5c40af83095f176ba41e:8836ee0f7377d71c156a139361a45be5
 https://jiotvpllive.cdn.jio.com/bpk-tv/StarSports2Telugu_BTS/WDVLive/index.mpd?__hdnea__=st=1777832135~exp=1777853735~acl=/bpk-tv/StarSports2Telugu_BTS/WDVLive/*~hmac=d47d8285fdbd46839a936c9e8e6a472cbf8f273f4dc0e2931091465e16adfc84
 
-#EXTINF:-1 tvg-id="471" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/SonySAB.png" group-title="Entertainment",Sony SAB HD
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=f223cf2122d7510da9fcec6e523ffba1:c55848470f58d3bd934fbfe844522b0e
-https://jiotvmblive.cdn.jio.com/bpk-tv/SonySAB_MOB/WDVLive/index.mpd?__hdnea__=st=1777824033~exp=1777845633~acl=/*~hmac=e84caf2e45cfbfcb7e43be49979021b59c7e3bdedc95df227fde3842f90ae79e
-
 #EXTINF:-1 tvg-id="154" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Sony_SAB.png" group-title="Entertainment",Sony SAB SD
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=ba4d9b38517552de9654d3652d27933b:31e7cbf3d289d3116386457ed8bac3a2
-https://jiotvmblive.cdn.jio.com/bpk-tv/Sony_SAB_MOB/WDVLive/index.mpd?__hdnea__=st=1777824033~exp=1777845633~acl=/*~hmac=e84caf2e45cfbfcb7e43be49979021b59c7e3bdedc95df227fde3842f90ae79e
+https://jiotvmblive.cdn.jio.com/bpk-tv/Sony_SAB_MOB/WDVLive/index.mpd?__hdnea__=st=1777831232~exp=1777852832~acl=/*~hmac=6d1dac91ec9a31686b1f9a19044627cac8147bcec09dd0ccd2c1ab15f3321a1e
