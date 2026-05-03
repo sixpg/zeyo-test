@@ -28,6 +28,7 @@ jobs:
           API_URL: ${{ secrets.API_URL }}
           STAR_JSON_URL: ${{ secrets.STAR_JSON_URL }}
           STAR_COOKIE_URL: ${{ secrets.STAR_COOKIE_URL }}
+          SONY_COOKIE_URL: ${{ secrets.SONY_COOKIE_URL }}
         run: |
           python <<EOF
           import os, requests
@@ -44,15 +45,12 @@ jobs:
           api_url = os.environ["API_URL"]
           star_json_url = os.environ["STAR_JSON_URL"]
           star_cookie_url = os.environ["STAR_COOKIE_URL"]
+          sony_cookie_url = os.environ["SONY_COOKIE_URL"]
 
-          # Fetch all channels API
           main_data = safe_get_json(api_url)
-
-          # Fetch Star Sports keys JSON
           star_data = safe_get_json(star_json_url)
-
-          # Fetch Star Sports cookie JSON
           cookie_data = safe_get_json(star_cookie_url)
+          sony_cookie_data = safe_get_json(sony_cookie_url)
 
           lines = ['#EXTM3U']
           used = set()
@@ -93,9 +91,8 @@ jobs:
           for ch in main_data:
               add_channel(ch)
 
-          # Build cookie URL map using channel_id
+          # Build cookie URL map using channel_id (Star Sports)
           cookie_map = {}
-
           if isinstance(cookie_data, dict):
               for item in cookie_data.get("successful_results", []) + cookie_data.get("failed_results", []):
                   cid = str(item.get("channel_id", "")).strip()
@@ -103,7 +100,7 @@ jobs:
                   if cid and furl:
                       cookie_map[cid] = furl
 
-          # STEP 2: Add Star Sports channels with keys + fresh cookie URLs
+          # STEP 2: Add Star Sports channels
           for ch in star_data:
               name = (ch.get("channel_name") or ch.get("name") or "").lower()
               cid = str(ch.get("channel_id") or ch.get("id") or "").strip()
@@ -112,6 +109,36 @@ jobs:
                   if cid in cookie_map:
                       ch["channel_url"] = cookie_map[cid]
                   add_channel(ch, force_group="Sports")
+
+          # ===== SONY SAB FIX (ONLY CHANGE) =====
+
+          global_cookie = ""
+
+          if isinstance(sony_cookie_data, list):
+              for item in sony_cookie_data:
+                  if isinstance(item, dict) and "cookie" in item:
+                      global_cookie = item["cookie"]
+                      break
+
+          for ch in star_data:
+              cid = str(ch.get("channel_id") or ch.get("id") or "").strip()
+              name = (ch.get("channel_name") or ch.get("name") or "").lower()
+
+              if cid == "154" or "sony sab" in name:
+
+                  base_url = ch.get("channel_url") or ch.get("url") or ""
+
+                  if not base_url:
+                      continue
+
+                  if global_cookie:
+                      ch["channel_url"] = f"{base_url}?{global_cookie}"
+                  else:
+                      continue
+
+                  add_channel(ch, force_group="Entertainment")
+
+          # ===== END =====
 
           with open("jtv.m3u", "w", encoding="utf-8") as f:
               f.write("\n".join(lines))
