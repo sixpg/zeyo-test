@@ -83,9 +83,12 @@ jobs:
                   lines.append(
                       f"#KODIPROP:inputstream.adaptive.license_key={kid}:{key}"
                   )
-
-              lines.append(f"{stream}|Cookie={global_cookie}")
-              lines.append("")
+              if global_cookie:
+                  lines.append(f"{stream}|Cookie={global_cookie}")
+              else:
+                  lines.append(stream)
+                  
+              lines.append("")    
 
           # STEP 1: Add ALL channels from API_URL
           for ch in main_data:
