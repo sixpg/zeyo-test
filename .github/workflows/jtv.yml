@@ -84,7 +84,7 @@ jobs:
                       f"#KODIPROP:inputstream.adaptive.license_key={kid}:{key}"
                   )
 
-              lines.append(stream.replace("?", "?|", 1))
+              lines.append(f"{stream}|Cookie={global_cookie}")
               lines.append("")
 
           # STEP 1: Add ALL channels from API_URL
