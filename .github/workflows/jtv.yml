@@ -54,7 +54,7 @@ jobs:
 
           lines = ['#EXTM3U']
           used = set()
-
+          global_cookie = ""
           def add_channel(ch, force_group=None):
               name = ch.get("channel_name") or ch.get("name") or "Unknown"
               logo = ch.get("channel_logo") or ch.get("logo") or ""
