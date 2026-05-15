@@ -1,5 +1,3 @@
-# .github/workflows/update-m3u.yml
-
 name: Auto Update M3U
 
 on:
@@ -20,138 +18,362 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Requests
-        run: pip install requests
-
-      - name: Generate Full Playlist + Add Star Sports
-        env:
-          API_URL: ${{ secrets.API_URL }}
-          STAR_JSON_URL: ${{ secrets.STAR_JSON_URL }}
-          STAR_COOKIE_URL: ${{ secrets.STAR_COOKIE_URL }}
-          SONY_COOKIE_URL: ${{ secrets.SONY_COOKIE_URL }}
+      - name: Install Dependencies
         run: |
+          pip install requests
+
+      - name: Generate Playlist
+        env:
+          CHANNEL_FETCHER: ${{ secrets.CHANNEL_FETCHER }}
+          COOKIE_FETCHER: ${{ secrets.COOKIE_FETCHER }}
+          PLLIVE_COOKIE_FETCHER: ${{ secrets.PLLIVE_COOKIE_FETCHER }}
+
+        run: |
+
           python <<EOF
-          import os, requests
 
-          def safe_get_json(url):
+          import os
+          import json
+          import requests
+          from urllib.parse import urlparse, parse_qs
+
+          # ==================================================
+          # FETCH JSON
+          # ==================================================
+
+          def safe_json(url):
+
               try:
-                  r = requests.get(url, timeout=60)
-                  if r.status_code != 200 or not r.text.strip():
-                      return []
-                  return r.json()
-              except:
-                  return []
 
-          api_url = os.environ["API_URL"]
-          star_json_url = os.environ["STAR_JSON_URL"]
-          star_cookie_url = os.environ["STAR_COOKIE_URL"]
-          sony_cookie_url = os.environ["SONY_COOKIE_URL"]
+                  headers = {
+                      "User-Agent": "Mozilla/5.0",
+                      "Referer": "https://www.google.com/",
+                      "Accept": "*/*"
+                  }
 
-          main_data = safe_get_json(api_url)
-          star_data = safe_get_json(star_json_url)
-          cookie_data = safe_get_json(star_cookie_url)
-          sony_cookie_data = safe_get_json(sony_cookie_url)
+                  print("=" * 60)
+                  print(f"FETCHING: {url}")
 
-          lines = ['#EXTM3U']
-          used = set()
-          global_cookie = ""
-          def add_channel(ch, force_group=None):
-              name = ch.get("channel_name") or ch.get("name") or "Unknown"
-              logo = ch.get("channel_logo") or ch.get("logo") or ""
-              gid = ch.get("channel_id") or ch.get("id") or ""
-              group = (
-                  force_group
-                  or ch.get("channel_genre")
-                  or ch.get("category")
-                  or "Live TV"
-              )
-              stream = ch.get("channel_url") or ch.get("url") or ""
-              kid = ch.get("keyId","")
-              key = ch.get("key","")
-
-              if not stream or stream in used:
-                  return
-
-              used.add(stream)
-
-              lines.append(
-                  f'#EXTINF:-1 tvg-id="{gid}" tvg-logo="{logo}" group-title="{group}",{name}'
-              )
-
-              if kid not in ["", "null", None] and key not in ["", "null", None]:
-                  lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
-                  lines.append(
-                      f"#KODIPROP:inputstream.adaptive.license_key={kid}:{key}"
+                  r = requests.get(
+                      url,
+                      headers=headers,
+                      timeout=60,
+                      allow_redirects=True
                   )
-              if global_cookie:
-                  lines.append(f"{stream}|Cookie={global_cookie}")
-              else:
-                  lines.append(stream)
-                  
-              lines.append("")    
 
-          # STEP 1: Add ALL channels from API_URL
-          for ch in main_data:
-              add_channel(ch)
+                  print(f"STATUS: {r.status_code}")
 
-          # Build cookie URL map using channel_id (Star Sports)
-          cookie_map = {}
-          if isinstance(cookie_data, dict):
-              for item in cookie_data.get("successful_results", []) + cookie_data.get("failed_results", []):
-                  cid = str(item.get("channel_id", "")).strip()
-                  furl = item.get("error_details", {}).get("final_url", "") or item.get("channel_url", "")
-                  if cid and furl:
-                      cookie_map[cid] = furl
+                  preview = r.text[:300].replace("\n", " ")
 
-          # STEP 2: Add Star Sports channels
-          for ch in star_data:
-              name = (ch.get("channel_name") or ch.get("name") or "").lower()
-              cid = str(ch.get("channel_id") or ch.get("id") or "").strip()
+                  print(f"PREVIEW: {preview}")
 
-              if "star sports" in name:
-                  if cid in cookie_map:
-                      ch["channel_url"] = cookie_map[cid]
-                  add_channel(ch, force_group="Sports")
+                  if r.status_code != 200:
+                      return None
 
-          # ===== SONY SAB FIX (ONLY CHANGE) =====
+                  return r.json()
 
-          global_cookie = ""
+              except Exception as e:
 
-          if isinstance(sony_cookie_data, list):
-              for item in sony_cookie_data:
-                  if isinstance(item, dict) and "cookie" in item:
-                      global_cookie = item["cookie"]
+                  print(f"ERROR: {e}")
+
+                  return None
+
+          # ==================================================
+          # LOAD ENV
+          # ==================================================
+
+          CHANNEL_FETCHER = os.environ.get(
+              "CHANNEL_FETCHER", ""
+          )
+
+          COOKIE_FETCHER = os.environ.get(
+              "COOKIE_FETCHER", ""
+          )
+
+          PLLIVE_COOKIE_FETCHER = os.environ.get(
+              "PLLIVE_COOKIE_FETCHER", ""
+          )
+
+          print("=" * 60)
+          print("SECRETS CHECK")
+
+          print(
+              f"CHANNEL_FETCHER EXISTS: {bool(CHANNEL_FETCHER)}"
+          )
+
+          print(
+              f"COOKIE_FETCHER EXISTS: {bool(COOKIE_FETCHER)}"
+          )
+
+          print(
+              f"PLLIVE_COOKIE_FETCHER EXISTS: {bool(PLLIVE_COOKIE_FETCHER)}"
+          )
+
+          # ==================================================
+          # FETCH DATA
+          # ==================================================
+
+          channels = safe_json(CHANNEL_FETCHER) or []
+
+          print("=" * 60)
+          print(f"TOTAL CHANNELS: {len(channels)}")
+
+          cookie_data = safe_json(COOKIE_FETCHER) or []
+
+          pllive_cookie_data = (
+              safe_json(PLLIVE_COOKIE_FETCHER) or {}
+          )
+
+          # ==================================================
+          # NORMAL COOKIE
+          # ==================================================
+
+          normal_cookie = ""
+
+          if isinstance(cookie_data, list):
+
+              for item in cookie_data:
+
+                  if (
+                      isinstance(item, dict)
+                      and "cookie" in item
+                  ):
+
+                      normal_cookie = item["cookie"]
+
                       break
 
-          for ch in star_data:
-              cid = str(ch.get("channel_id") or ch.get("id") or "").strip()
-              name = (ch.get("channel_name") or ch.get("name") or "").lower()
+          print("=" * 60)
+          print(
+              f"NORMAL COOKIE FOUND: {bool(normal_cookie)}"
+          )
 
-              if cid == "154" or "sony sab" in name:
+          # ==================================================
+          # PLLIVE COOKIE MAP
+          # ==================================================
 
-                  base_url = ch.get("channel_url") or ch.get("url") or ""
+          pllive_cookie_map = {}
 
-                  if not base_url:
+          if isinstance(pllive_cookie_data, dict):
+
+              results = (
+                  pllive_cookie_data.get(
+                      "successful_results", []
+                  )
+                  +
+                  pllive_cookie_data.get(
+                      "failed_results", []
+                  )
+              )
+
+              for item in results:
+
+                  cid = str(
+                      item.get("channel_id", "")
+                  ).strip()
+
+                  final_url = (
+                      item.get(
+                          "error_details", {}
+                      ).get("final_url", "")
+                  )
+
+                  if not cid or not final_url:
                       continue
 
-                  if global_cookie:
-                      ch["channel_url"] = f"{base_url}?{global_cookie}"
+                  try:
+
+                      parsed = urlparse(final_url)
+
+                      qs = parse_qs(parsed.query)
+
+                      hdnea = qs.get(
+                          "__hdnea__", [""]
+                      )[0]
+
+                      if hdnea:
+
+                          pllive_cookie_map[cid] = (
+                              f"__hdnea__={hdnea}"
+                          )
+
+                  except:
+                      pass
+
+          print("=" * 60)
+          print(
+              f"PLLIVE COOKIES: {len(pllive_cookie_map)}"
+          )
+
+          # ==================================================
+          # GENERATE PLAYLIST
+          # ==================================================
+
+          lines = ['#EXTM3U']
+
+          used = set()
+
+          def add_channel(ch):
+
+              try:
+
+                  name = ch.get(
+                      "name",
+                      "Unknown"
+                  )
+
+                  cid = str(
+                      ch.get("id", "")
+                  ).strip()
+
+                  category = ch.get(
+                      "category",
+                      "Live TV"
+                  )
+
+                  logo = ch.get(
+                      "logo",
+                      ""
+                  )
+
+                  url = ch.get(
+                      "url",
+                      ""
+                  )
+
+                  kid = ch.get(
+                      "keyId",
+                      ""
+                  )
+
+                  key = ch.get(
+                      "key",
+                      ""
+                  )
+
+                  if not url:
+                      return
+
+                  if url in used:
+                      return
+
+                  used.add(url)
+
+                  lines.append(
+                      f'#EXTINF:-1 tvg-id="{cid}" tvg-logo="{logo}" group-title="{category}",{name}'
+                  )
+
+                  # ======================================
+                  # DRM
+                  # ======================================
+
+                  if (
+                      kid not in ["", None, "null"]
+                      and
+                      key not in ["", None, "null"]
+                  ):
+
+                      lines.append(
+                          "#KODIPROP:inputstream.adaptive.license_type=clearkey"
+                      )
+
+                      lines.append(
+                          f"#KODIPROP:inputstream.adaptive.license_key={kid}:{key}"
+                      )
+
+                  final_url = url
+
+                  # ======================================
+                  # PLLIVE SPECIAL COOKIE
+                  # ======================================
+
+                  if (
+                      "https://jiotvpllive.cdn.jio.com"
+                      in url
+                  ):
+
+                      cookie = (
+                          pllive_cookie_map.get(
+                              cid,
+                              ""
+                          )
+                      )
+
+                      if cookie:
+
+                          final_url = (
+                              f"{url}|Cookie={cookie}"
+                          )
+
+                      else:
+
+                          if normal_cookie:
+
+                              final_url = (
+                                  f"{url}|Cookie={normal_cookie}"
+                              )
+
+                  # ======================================
+                  # ALL OTHER CHANNELS
+                  # ======================================
+
                   else:
-                      continue
 
-                  add_channel(ch, force_group="Entertainment")
+                      if normal_cookie:
 
-          # ===== END =====
+                          final_url = (
+                              f"{url}|Cookie={normal_cookie}"
+                          )
 
-          with open("jtv.m3u", "w", encoding="utf-8") as f:
+                  lines.append(final_url)
+
+                  lines.append("")
+
+              except Exception as e:
+
+                  print(
+                      f"CHANNEL ERROR: {e}"
+                  )
+
+          # ==================================================
+          # PROCESS CHANNELS
+          # ==================================================
+
+          for ch in channels:
+
+              add_channel(ch)
+
+          # ==================================================
+          # SAVE FILE
+          # ==================================================
+
+          with open(
+              "jtv.m3u",
+              "w",
+              encoding="utf-8"
+          ) as f:
+
               f.write("\n".join(lines))
+
+          print("=" * 60)
+          print(
+              f"GENERATED CHANNELS: {len(used)}"
+          )
+
+          print("=" * 60)
+          print("DONE")
 
           EOF
 
-      - name: Commit Files
+      - name: Commit Playlist
         run: |
+
           git config user.name "github-actions[bot]"
+
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add jtv.m3u
-          git commit -m "Auto update full playlist with Star Sports" || echo "No changes"
+
+          git commit -m "Auto update playlist" || echo "No changes"
+
           git push
