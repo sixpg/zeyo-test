@@ -399,7 +399,7 @@ https://jiotvmblive.cdn.jio.com/bpk-tv/TLCHDEnglish_MOB/WDVLive/index.mpd|Cookie
 #EXTINF:-1 tvg-id="482" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/Colors_Cineplex.png" group-title="Movies",Colors Cineplex
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=c7cda772f66f5ac3acc5ae38445d80ff:b54ed17e8f2fafeddcf587bf8a5506b1
-https://jiotvpllive.cdn.jio.com/bpk-tv/Colors_Cineplex_BTS/WDVLive/index.mpd|Cookie=__hdnea__=st=1779515458~exp=1779537058~acl=/bpk-tv/Colors_Cineplex_BTS/WDVLive/*~hmac=3937b8335df0c7a91f459938fefcefc3b054c0ab6ca69ed7c4817fcaa0515d40
+https://jiotvpllive.cdn.jio.com/bpk-tv/Colors_Cineplex_BTS/WDVLive/index.mpd|Cookie=__hdnea__=st=1779537544~exp=1779559144~acl=/bpk-tv/Colors_Cineplex_BTS/WDVLive/*~hmac=d78ce6962a349541164f7bd75a708ffc3f3a5071251faa3fc5c43cd5a6238972
 
 #EXTINF:-1 tvg-id="483" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/SonyMAX2.png" group-title="Movies",Sony MAX2
 #KODIPROP:inputstream.adaptive.license_type=clearkey
@@ -4249,7 +4249,7 @@ https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Gold_Romance_BTS/WDVLive/index.mpd|C
 #EXTINF:-1 tvg-id="3098" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/Star_Gold_Thrills.png" group-title="Movies",Star Gold Thrills
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=189ccd629ff25ec1adc2e34d49b186eb:fd102ddbd3844b55b70c6aa23dbd212b
-https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Gold_Thrills_BTS/WDVLive/index.mpd|Cookie=__hdnea__=st=1779515219~exp=1779536819~acl=/bpk-tv/Star_Gold_Thrills_BTS/WDVLive/*~hmac=68f4563612d4debf1c26e5a0a78e7892384ab520281c18a9bdfe35dec16bc0aa
+https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Gold_Thrills_BTS/WDVLive/index.mpd|Cookie=__hdnea__=st=1779537302~exp=1779558902~acl=/bpk-tv/Star_Gold_Thrills_BTS/WDVLive/*~hmac=f2e92846dc17b9f290dd8219cbc469afdbb2a56f4d31ad0a61816e402074e2a0
 
 #EXTINF:-1 tvg-id="3099" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/Star_Pravah_Picture.png" group-title="Marathi",Star Pravah Picture
 #KODIPROP:inputstream.adaptive.license_type=clearkey
