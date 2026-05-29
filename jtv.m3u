@@ -37,7 +37,7 @@ https://jiotvmblive.cdn.jio.com/bpk-tv/Travel_XP_HD_MOB/WDVLive/index.mpd|Cookie
 #EXTINF:-1 tvg-id="165" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/ZeeCinemaHD.png" group-title="Movies",Zee Cinema HD
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=93d51baa27315cbfa26df35c3c3e47b6:c3b38db5542719e8e10008e9193089e6
-https://jiotvmblive.cdn.jio.com/bpk-tv/ZeeCinemaHD_MOB/WDVLive/index.mpd|Cookie=__hdnea__=st=1779992532~exp=1780014132~acl=/*~hmac=ccb727ae5ec4e2e4cde2eeaeac0f3a5c02a1e901968f07db27f2cfa4dfcba37a
+https://jiotvpllive.cdn.jio.com/bpk-tv/ZeeCinemaHD_BTS/WDVLive/index.mpd|Cookie=__hdnea__=st=1779992532~exp=1780014132~acl=/*~hmac=ccb727ae5ec4e2e4cde2eeaeac0f3a5c02a1e901968f07db27f2cfa4dfcba37a
 
 #EXTINF:-1 tvg-id="166" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/CNTelugu.png" group-title="Telugu",Cartoon Network Telugu
 #KODIPROP:inputstream.adaptive.license_type=clearkey
