@@ -29,9 +29,7 @@ jobs:
           PLLIVE_COOKIE_FETCHER: ${{ secrets.PLLIVE_COOKIE_FETCHER }}
 
         run: |
-
           python <<EOF
-
           import os
           import json
           import requests
@@ -40,340 +38,173 @@ jobs:
           # ==================================================
           # FETCH JSON
           # ==================================================
-
           def safe_json(url):
-
               try:
-
                   headers = {
                       "User-Agent": "Mozilla/5.0",
                       "Referer": "https://www.google.com/",
                       "Accept": "*/*"
                   }
-
                   print("=" * 60)
                   print(f"FETCHING: {url}")
-
                   r = requests.get(
                       url,
                       headers=headers,
                       timeout=60,
                       allow_redirects=True
                   )
-
                   print(f"STATUS: {r.status_code}")
-
                   preview = r.text[:300].replace("\n", " ")
-
                   print(f"PREVIEW: {preview}")
-
                   if r.status_code != 200:
                       return None
-
                   return r.json()
-
               except Exception as e:
-
                   print(f"ERROR: {e}")
-
                   return None
 
           # ==================================================
           # LOAD ENV
           # ==================================================
-
-          CHANNEL_FETCHER = os.environ.get(
-              "CHANNEL_FETCHER", ""
-          )
-
-          COOKIE_FETCHER = os.environ.get(
-              "COOKIE_FETCHER", ""
-          )
-
-          PLLIVE_COOKIE_FETCHER = os.environ.get(
-              "PLLIVE_COOKIE_FETCHER", ""
-          )
+          CHANNEL_FETCHER = os.environ.get("CHANNEL_FETCHER", "")
+          COOKIE_FETCHER = os.environ.get("COOKIE_FETCHER", "")
+          PLLIVE_COOKIE_FETCHER = os.environ.get("PLLIVE_COOKIE_FETCHER", "")
 
           print("=" * 60)
           print("SECRETS CHECK")
-
-          print(
-              f"CHANNEL_FETCHER EXISTS: {bool(CHANNEL_FETCHER)}"
-          )
-
-          print(
-              f"COOKIE_FETCHER EXISTS: {bool(COOKIE_FETCHER)}"
-          )
-
-          print(
-              f"PLLIVE_COOKIE_FETCHER EXISTS: {bool(PLLIVE_COOKIE_FETCHER)}"
-          )
+          print(f"CHANNEL_FETCHER EXISTS: {bool(CHANNEL_FETCHER)}")
+          print(f"COOKIE_FETCHER EXISTS: {bool(COOKIE_FETCHER)}")
+          print(f"PLLIVE_COOKIE_FETCHER EXISTS: {bool(PLLIVE_COOKIE_FETCHER)}")
 
           # ==================================================
           # FETCH DATA
           # ==================================================
-
           channels = safe_json(CHANNEL_FETCHER) or []
-
           print("=" * 60)
           print(f"TOTAL CHANNELS: {len(channels)}")
 
           cookie_data = safe_json(COOKIE_FETCHER) or []
-
-          pllive_cookie_data = (
-              safe_json(PLLIVE_COOKIE_FETCHER) or {}
-          )
+          pllive_cookie_data = safe_json(PLLIVE_COOKIE_FETCHER) or {}
 
           # ==================================================
           # NORMAL COOKIE
           # ==================================================
-
           normal_cookie = ""
-
           if isinstance(cookie_data, list):
-
               for item in cookie_data:
-
-                  if (
-                      isinstance(item, dict)
-                      and "cookie" in item
-                  ):
-
+                  if isinstance(item, dict) and "cookie" in item:
                       normal_cookie = item["cookie"]
-
                       break
 
           print("=" * 60)
-          print(
-              f"NORMAL COOKIE FOUND: {bool(normal_cookie)}"
-          )
+          print(f"NORMAL COOKIE FOUND: {bool(normal_cookie)}")
 
           # ==================================================
           # PLLIVE COOKIE MAP
           # ==================================================
-
           pllive_cookie_map = {}
-
           if isinstance(pllive_cookie_data, dict):
-
               results = (
-                  pllive_cookie_data.get(
-                      "successful_results", []
-                  )
-                  +
-                  pllive_cookie_data.get(
-                      "failed_results", []
-                  )
+                  pllive_cookie_data.get("successful_results", [])
+                  + pllive_cookie_data.get("failed_results", [])
               )
-
               for item in results:
-
-                  cid = str(
-                      item.get("channel_id", "")
-                  ).strip()
-
-                  final_url = (
-                      item.get(
-                          "error_details", {}
-                      ).get("final_url", "")
-                  )
-
+                  cid = str(item.get("channel_id", "")).strip()
+                  final_url = item.get("error_details", {}).get("final_url", "")
                   if not cid or not final_url:
                       continue
-
                   try:
-
                       parsed = urlparse(final_url)
-
                       qs = parse_qs(parsed.query)
-
-                      hdnea = qs.get(
-                          "__hdnea__", [""]
-                      )[0]
-
+                      hdnea = qs.get("__hdnea__", [""])[0]
                       if hdnea:
-
-                          pllive_cookie_map[cid] = (
-                              f"__hdnea__={hdnea}"
-                          )
-
+                          pllive_cookie_map[cid] = f"__hdnea__={hdnea}"
                   except:
                       pass
 
           print("=" * 60)
-          print(
-              f"PLLIVE COOKIES: {len(pllive_cookie_map)}"
-          )
+          print(f"PLLIVE COOKIES: {len(pllive_cookie_map)}")
 
           # ==================================================
           # GENERATE PLAYLIST
           # ==================================================
-
           lines = ['#EXTM3U']
-
           used = set()
 
           def add_channel(ch):
-
               try:
-
-                  name = ch.get(
-                      "name",
-                      "Unknown"
-                  )
-
-                  cid = str(
-                      ch.get("id", "")
-                  ).strip()
-
-                  category = ch.get(
-                      "category",
-                      "Live TV"
-                  )
-
-                  logo = ch.get(
-                      "logo",
-                      ""
-                  )
-
-                  url = ch.get(
-                      "url",
-                      ""
-                  )
-
-                  kid = ch.get(
-                      "keyId",
-                      ""
-                  )
-
-                  key = ch.get(
-                      "key",
-                      ""
-                  )
+                  name = ch.get("name", "Unknown")
+                  cid = str(ch.get("id", "")).strip()
+                  category = ch.get("category", "Live TV")
+                  logo = ch.get("logo", "")
+                  url = ch.get("url", "")
+                  kid = ch.get("keyId", "")
+                  key = ch.get("key", "")
 
                   if not url:
                       return
-
                   if url in used:
                       return
-
                   used.add(url)
 
+                  # Format standard string matching layout requirement
                   lines.append(
-                      f'#EXTINF:-1 tvg-id="{cid}" tvg-logo="{logo}" group-title="{category}",{name}'
+                      f'#EXTINF:-1 tvg-id="{cid}" '
+                      f'tvg-name="{name}" '
+                      f'tvg-logo="{logo}" '
+                      f'group-title="{category}",{name}'
                   )
 
-                  # ======================================
-                  # DRM
-                  # ======================================
+                  # Add manifest framework mapping if MPD
+                  if ".mpd" in url.lower():
+                      lines.append("#KODIPROP:inputstream.adaptive.manifest_type=mpd")
 
-                  if (
-                      kid not in ["", None, "null"]
-                      and
-                      key not in ["", None, "null"]
-                  ):
+                  # Clearkey properties layout
+                  if kid not in ["", None, "null"] and key not in ["", None, "null"]:
+                      lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
+                      lines.append(f"#KODIPROP:inputstream.adaptive.license_key={kid}:{key}")
 
-                      lines.append(
-                          "#KODIPROP:inputstream.adaptive.license_type=clearkey"
-                      )
-
-                      lines.append(
-                          f"#KODIPROP:inputstream.adaptive.license_key={kid}:{key}"
-                      )
-
-                  final_url = url
-
-                  # ======================================
-                  # PLLIVE SPECIAL COOKIE
-                  # ======================================
-
-                  if (
-                      "https://jiotvpllive.cdn.jio.com"
-                      in url
-                  ):
-
-                      cookie = (
-                          pllive_cookie_map.get(
-                              cid,
-                              ""
-                          )
-                      )
-
-                      if cookie:
-
-                          final_url = (
-                              f"{url}|Cookie={cookie}"
-                          )
-
-                      else:
-
-                          if normal_cookie:
-
-                              final_url = (
-                                  f"{url}|Cookie={normal_cookie}"
-                              )
-
-                  # ======================================
-                  # ALL OTHER CHANNELS
-                  # ======================================
-
+                  # Base setup dynamic suffix evaluation
+                  cookie = ""
+                  if "https://jiotvpllive.cdn.jio.com" in url:
+                      cookie = pllive_cookie_map.get(cid, "") or normal_cookie
                   else:
+                      cookie = normal_cookie
 
-                      if normal_cookie:
-
-                          final_url = (
-                              f"{url}|Cookie={normal_cookie}"
-                          )
+                  # Compile complete stream destination format with User-Agent header prefix
+                  if cookie:
+                      final_url = f"{url}|User-Agent=Droovy&Cookie={cookie}"
+                  else:
+                      final_url = f"{url}|User-Agent=Droovy"
 
                   lines.append(final_url)
-
                   lines.append("")
 
               except Exception as e:
-
-                  print(
-                      f"CHANNEL ERROR: {e}"
-                  )
+                  print(f"CHANNEL ERROR: {e}")
 
           # ==================================================
           # PROCESS CHANNELS
           # ==================================================
-
           for ch in channels:
-
               add_channel(ch)
 
           # ==================================================
           # SAVE FILE
           # ==================================================
-
-          with open(
-              "jtv.m3u",
-              "w",
-              encoding="utf-8"
-          ) as f:
-
+          with open("jtv.m3u", "w", encoding="utf-8") as f:
               f.write("\n".join(lines))
 
           print("=" * 60)
-          print(
-              f"GENERATED CHANNELS: {len(used)}"
-          )
-
+          print(f"GENERATED CHANNELS: {len(used)}")
           print("=" * 60)
           print("DONE")
-
           EOF
 
       - name: Commit Playlist
         run: |
-
           git config user.name "github-actions[bot]"
-
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add jtv.m3u
-
           git commit -m "Auto update playlist" || echo "No changes"
-
           git push
