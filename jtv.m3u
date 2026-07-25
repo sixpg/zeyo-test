@@ -15,7 +15,7 @@ https://jiotvmblive.cdn.jio.com/bpk-tv/ColorsHD_MOB/WDVLive/index.mpd|User-Agent
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=0172b8cd13ed59349a05aadc58ae11e0:e4ab7836617767a2a6e7aaae17fad2b6
-https://jiotvpllive.cdn.jio.com/bpk-tv/History_HD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1784990274~exp=1785011874~acl=/bpk-tv/History_HD_BTS/WDVLive/*~hmac=4b573eff24c0bc66e8968790890106684b9e7070c3f43382f7955207511f8a9e
+https://jiotvpllive.cdn.jio.com/bpk-tv/History_HD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1785012004~exp=1785033604~acl=/bpk-tv/History_HD_BTS/WDVLive/*~hmac=d2a4ddd2a17652dc1a91da62acd1197efd2dd37e3fe5324b301a8698afe6e523
 
 #EXTINF:-1 tvg-id="151" tvg-name="Movies Now HD" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/Movies_Now_HD.png" group-title="English",Movies Now HD
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -39,7 +39,7 @@ https://jiotvmblive.cdn.jio.com/bpk-tv/Star_Gold_HD_MOB/WDVLive/index.mpd|User-A
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=021bd4635e8653bca6830adaca183b14:035ec746d6ee0d39cb7cb15963da8424
-https://jiotvpllive.cdn.jio.com/bpk-tv/Travel_XP_HD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1784990408~exp=1785012008~acl=/bpk-tv/Travel_XP_HD_BTS/WDVLive/*~hmac=cfa73e88627914709f7b51a097fe0002fff90f50528d80a6c19176e5ebbe1667
+https://jiotvpllive.cdn.jio.com/bpk-tv/Travel_XP_HD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1785012309~exp=1785033909~acl=/bpk-tv/Travel_XP_HD_BTS/WDVLive/*~hmac=c3805397b46c4ba246f3eb5d437e7ca9db1fb6477d1d82b7ef35584eff138c95
 
 #EXTINF:-1 tvg-id="165" tvg-name="Zee Cinema HD" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/ZeeCinemaHD.png" group-title="Movies",Zee Cinema HD
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -333,7 +333,7 @@ https://jiotvmblive.cdn.jio.com/bpk-tv/ZeeYuva_MOB/WDVLive/index.mpd|User-Agent=
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=8ab0674eba3f5adf96a9b65a6e82d208:476f813d8651987fc1b4074693676fd8
-https://jiotvpllive.cdn.jio.com/bpk-tv/ZeeAnmolCinema_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1784989510~exp=1785011110~acl=/bpk-tv/ZeeAnmolCinema_BTS/WDVLive/*~hmac=e9e69e6ce9e686e66bb841da79f7d0f32a9e1df77650bbc9b4c2de9b08b292e6
+https://jiotvpllive.cdn.jio.com/bpk-tv/ZeeAnmolCinema_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1785011407~exp=1785033007~acl=/bpk-tv/ZeeAnmolCinema_BTS/WDVLive/*~hmac=826f9c623f4e02164652d3e6ac6f5bb4a3a7bfce5510f2fcb20473a69c5787d5
 
 #EXTINF:-1 tvg-id="417" tvg-name="J Movies" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/J_Movies.png" group-title="Tamil",J Movies
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -783,7 +783,7 @@ https://jiotvmblive.cdn.jio.com/bpk-tv/Food_Food_MOB/WDVLive/index.mpd|User-Agen
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=39aa887ebbc35db6bd10217aba5e016b:a1862a47f6db0af137d0c69b3cb422bb
-https://jiotvpllive.cdn.jio.com/bpk-tv/Travel_XP_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1784989513~exp=1785011113~acl=/bpk-tv/Travel_XP_BTS/WDVLive/*~hmac=e7ba93aa65ad9cb28711671e2d5a9e2e2bdc17ec46d8255f5189716f23848146
+https://jiotvpllive.cdn.jio.com/bpk-tv/Travel_XP_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1785011410~exp=1785033010~acl=/bpk-tv/Travel_XP_BTS/WDVLive/*~hmac=d6684b0e5ca04c1229a52bb1b8ee83840bcbacdf1f5fe355c645dcdc91df48dd
 
 #EXTINF:-1 tvg-id="563" tvg-name="Kaumudy TV" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/Kaumudy_TV.png" group-title="Malayalam",Kaumudy TV
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -1839,7 +1839,7 @@ https://jiotvmblive.cdn.jio.com/bpk-tv/CNTamil_MOB/WDVLive/index.mpd|User-Agent=
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=f45e69507f0f5aa1a6e82374efb0af25:f84348219837769feb5a26a7b1cd31dc
-https://jiotvpllive.cdn.jio.com/bpk-tv/SonyBBCEarthHin_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1784989520~exp=1785011120~acl=/bpk-tv/SonyBBCEarthHin_BTS/WDVLive/*~hmac=a56c13a248646bcb10c64f93abfd8daa01e23e608ea02186aba9a7ec59f54dff
+https://jiotvpllive.cdn.jio.com/bpk-tv/SonyBBCEarthHin_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1785011412~exp=1785033012~acl=/bpk-tv/SonyBBCEarthHin_BTS/WDVLive/*~hmac=37956402758c7e18614df42ac141a1e9eab8505d8d36dc84681bc40fc96ac377
 
 #EXTINF:-1 tvg-id="824" tvg-name="Puthu Yugam" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/Puthu_Yugam.png" group-title="Tamil",Puthu Yugam
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -3043,13 +3043,13 @@ https://jiotvmblive.cdn.jio.com/bpk-tv/DD_Gyandarshan_MOB/WDVLive/index.mpd|User
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=45fc661aa1af51c98950c43329391d18:c2677c874886e78d24b3fb656c5734e0
-https://jiotvpllive.cdn.jio.com/bpk-tv/Nat_Geo_Wild_HD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1784990411~exp=1785012011~acl=/bpk-tv/Nat_Geo_Wild_HD_BTS/WDVLive/*~hmac=0dc9e4b4cd12261757a3728dec61d03623b167b7ad539303cbd83904b662dcbb
+https://jiotvpllive.cdn.jio.com/bpk-tv/Nat_Geo_Wild_HD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1785012312~exp=1785033912~acl=/bpk-tv/Nat_Geo_Wild_HD_BTS/WDVLive/*~hmac=9b5e77be282af34c3279c2a10f8d073977a00774d37735dcb459ba82e039ee12
 
 #EXTINF:-1 tvg-id="1335" tvg-name="National Geographic HD" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/National_Geographic_HD.png" group-title="English",National Geographic HD
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=4b006dd7965e5777a7fa33dd636c2e5d:179f796bdf11b750bebd469a3aeae1d0
-https://jiotvpllive.cdn.jio.com/bpk-tv/National_Geographic_HD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1784990421~exp=1785012021~acl=/bpk-tv/National_Geographic_HD_BTS/WDVLive/*~hmac=417e0fc8b27fc6e430e001dc532a94d8192e536fac6b54c0ec02969809690570
+https://jiotvpllive.cdn.jio.com/bpk-tv/National_Geographic_HD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1785012315~exp=1785033915~acl=/bpk-tv/National_Geographic_HD_BTS/WDVLive/*~hmac=8173a8379f4fee9bcac7f3e5444d81993a739483244d241d3f4cb5857d885983
 
 #EXTINF:-1 tvg-id="1338" tvg-name="RT India" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/RT_TV.png" group-title="English",RT India
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -3655,7 +3655,7 @@ https://jiotvmblive.cdn.jio.com/bpk-tv/Rongeen_TV_MOB/WDVLive/index.mpd|User-Age
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=67e52f4bdcfc525898be0446feb7f185:8cf5c24b168105bca24b358eb05f6df4
-https://jiotvpllive.cdn.jio.com/bpk-tv/AndXploreHD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1784989523~exp=1785011123~acl=/bpk-tv/AndXploreHD_BTS/WDVLive/*~hmac=ef4bdc5f3e388b331c4164630db9e3925bea7dbc2fc52b6a897b42db2255bf00
+https://jiotvpllive.cdn.jio.com/bpk-tv/AndXploreHD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1785011415~exp=1785033015~acl=/bpk-tv/AndXploreHD_BTS/WDVLive/*~hmac=8db0159f206c44fbbb1ad426dc6e514acbcc190c543f102bdb183af3b34ee54f
 
 #EXTINF:-1 tvg-id="1669" tvg-name="Sun Bangla" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/Sun_Bangla.png" group-title="Bengali",Sun Bangla
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -5081,7 +5081,7 @@ https://jiotvmblive.cdn.jio.com/bpk-tv/NDTV_Marathi_MOB/WDVLive/index.mpd|User-A
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=e6afa4754bc15dd28ab6806f417d319d:6a74ef2884813547109ee96098610387
-https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Gold_2_HD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1784989935~exp=1785011535~acl=/bpk-tv/Star_Gold_2_HD_BTS/WDVLive/*~hmac=8f6117bdb1bb19d6b562fe3b18b0904fa77a0f2a080aaa7e8c191df62480f070
+https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Gold_2_HD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1785011709~exp=1785033309~acl=/bpk-tv/Star_Gold_2_HD_BTS/WDVLive/*~hmac=7fb9cb47fa48d5d40a4c9e5b4ea4df5d0128bd246e9632361c6e4a34f371e04c
 
 #EXTINF:-1 tvg-id="3097" tvg-name="Star Gold Romance" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/Star_Gold_Romance.png" group-title="Movies",Star Gold Romance
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
