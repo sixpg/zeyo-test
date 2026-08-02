@@ -57,7 +57,7 @@ https://jiotvmblive.cdn.jio.com/bpk-tv/CNTelugu_MOB/WDVLive/index.mpd|User-Agent
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=a23b609b33e254a48e4fc6fa7af0fd8d:4064c52328bfe9e6008776b48a431e4b
-https://jiotvpllive.cdn.jio.com/bpk-tv/ZeeTVHD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1785657306~exp=1785678906~acl=/bpk-tv/ZeeTVHD_BTS/WDVLive/*~hmac=7f45702a35e5cba6e2a7696c82ea1b34e4bca6488d2ca03e68cb6ae8d49a2d98
+https://jiotvpllive.cdn.jio.com/bpk-tv/ZeeTVHD_BTS/WDVLive/index.mpd|User-Agent=Droovy&Cookie=__hdnea__=st=1785678908~exp=1785700508~acl=/bpk-tv/ZeeTVHD_BTS/WDVLive/*~hmac=298e5ace79f51ba983fa89510480d2d2a4dd9cdccc0d15786d8100509044a823
 
 #EXTINF:-1 tvg-id="173" tvg-name="Aaj Tak" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/Aaj_Tak.png" group-title="News",Aaj Tak
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
