@@ -160,33 +160,65 @@ jobs:
                       lines.append("#KODIPROP:inputstream.adaptive.manifest_type=mpd")
 
                   # Clearkey properties layout
-                  keys = ch.get("keys", [])
+                  # Supports the new "keys" array with multiple KID/key pairs
+                  keys = ch.get("keys")
 
-                  if isinstance(keys, list) and keys:
-                      valid_keys = []
+                  valid_keys = []
 
+                  if isinstance(keys, list):
                       for key_item in keys:
                           if not isinstance(key_item, dict):
                               continue
 
-                          key_id = key_item.get("keyId", "")
-                          key_value = key_item.get("key", "")
+                          key_id = key_item.get("keyId")
+                          key_value = key_item.get("key")
+
+                          if key_id is None or key_value is None:
+                              continue
+
+                          key_id = str(key_id).strip()
+                          key_value = str(key_value).strip()
 
                           if (
-                              key_id not in ["", None, "null"]
-                              and key_value not in ["", None, "null"]
+                              key_id
+                              and key_value
+                              and key_id.lower() != "null"
+                              and key_value.lower() != "null"
                           ):
                               valid_keys.append(f"{key_id}:{key_value}")
 
-                      if valid_keys:
-                          lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
-                          lines.append(
-                              f"#KODIPROP:inputstream.adaptive.license_key={','.join(valid_keys)}"
-                          )
+                  elif isinstance(keys, dict):
+                      key_id = keys.get("keyId")
+                      key_value = keys.get("key")
 
-                  elif kid not in ["", None, "null"] and key not in ["", None, "null"]:
+                      if key_id is not None and key_value is not None:
+                          key_id = str(key_id).strip()
+                          key_value = str(key_value).strip()
+
+                          if (
+                              key_id
+                              and key_value
+                              and key_id.lower() != "null"
+                              and key_value.lower() != "null"
+                          ):
+                              valid_keys.append(f"{key_id}:{key_value}")
+
+                  # New multi-key format
+                  if valid_keys:
                       lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
-                      lines.append(f"#KODIPROP:inputstream.adaptive.license_key={kid}:{key}")
+                      lines.append(
+                          f"#KODIPROP:inputstream.adaptive.license_key={','.join(valid_keys)}"
+                      )
+
+                  # Original single-key format
+                  elif (
+                      kid not in ["", None, "null"]
+                      and key not in ["", None, "null"]
+                  ):
+                      lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
+                      lines.append(
+                          f"#KODIPROP:inputstream.adaptive.license_key={kid}:{key}"
+                      )
 
                   # Base setup dynamic suffix evaluation
                   cookie = ""
