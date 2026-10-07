@@ -159,10 +159,7 @@ jobs:
                   if ".mpd" in url.lower():
                       lines.append("#KODIPROP:inputstream.adaptive.manifest_type=mpd")
 
-                  # ==================================================
-                  # CLEARKEY PROPERTIES LAYOUT
-                  # Supports both old single-key and new multi-key format
-                  # ==================================================
+                  # Clearkey properties layout
                   keys = ch.get("keys", [])
 
                   if isinstance(keys, list) and keys:
