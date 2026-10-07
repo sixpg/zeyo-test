@@ -159,8 +159,35 @@ jobs:
                   if ".mpd" in url.lower():
                       lines.append("#KODIPROP:inputstream.adaptive.manifest_type=mpd")
 
-                  # Clearkey properties layout
-                  if kid not in ["", None, "null"] and key not in ["", None, "null"]:
+                  # ==================================================
+                  # CLEARKEY PROPERTIES LAYOUT
+                  # Supports both old single-key and new multi-key format
+                  # ==================================================
+                  keys = ch.get("keys", [])
+
+                  if isinstance(keys, list) and keys:
+                      valid_keys = []
+
+                      for key_item in keys:
+                          if not isinstance(key_item, dict):
+                              continue
+
+                          key_id = key_item.get("keyId", "")
+                          key_value = key_item.get("key", "")
+
+                          if (
+                              key_id not in ["", None, "null"]
+                              and key_value not in ["", None, "null"]
+                          ):
+                              valid_keys.append(f"{key_id}:{key_value}")
+
+                      if valid_keys:
+                          lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
+                          lines.append(
+                              f"#KODIPROP:inputstream.adaptive.license_key={','.join(valid_keys)}"
+                          )
+
+                  elif kid not in ["", None, "null"] and key not in ["", None, "null"]:
                       lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
                       lines.append(f"#KODIPROP:inputstream.adaptive.license_key={kid}:{key}")
 
